@@ -1,6 +1,6 @@
-/* Nathaniel Clay Arnold 
- * Author: 
- * Program 1 - MyString
+/*  
+ * Author: Nathaniel Clay Arnold
+ * Program 2 - C4
  * CSC230-02 Spring 2016
  */
 
@@ -10,8 +10,8 @@ package mygame;
 public class C4 extends Game {
    
    private final int ROWS = 6, COLS = 7; 
-   private int[][] board = new int[ROWS][COLS];  //final?
-   // more than one instance at a time? 
+   private int[][] board = new int[ROWS][COLS];  
+  
 
 /* 
 The Game class has the following public methods that you may utilize:
@@ -37,7 +37,7 @@ public C4(){
 
 
 
-// a clearBoard method that sets all values of board to 0a
+// a clearBoard method that sets all values of board to 0
 private void clearboard(){
        for(int i = 0; i < ROWS; i++){
            for(int j = 0; j < COLS; j++){
@@ -70,7 +70,7 @@ public boolean isColFull(int col){
 }
 
 /* an isDiagWinner method that returns true if there are 
-4 diagonal int values on board, otherwise false
+   4 matching diagonal int values on board, otherwise false
 */
 private boolean isDiagWinner(){
     for(int i = 0; i < 3; i++){
@@ -166,13 +166,17 @@ public void nextturn(){
 /* a playPiece method that inserts the value of the current player 
 into board at the next available row for the given col
 */
-public void playPiece(int col){
+public void playPiece(int col) throws ArrayIndexOutOfBoundsException{
     if(isColFull(col) == true){
-    // throws, try catch? 
+    throw new ColFullException();  
+    }
+    if(col >= COLS){
+    throw new ArrayIndexOutOfBoundsException();  
     }
     for(int i = 0; i < ROWS; i++){ 
         if (board[i][col] != 0){
             board[i-1][col] = getTurn(); 
+            break; 
         }
     }
 }
@@ -181,7 +185,15 @@ public void playPiece(int col){
 representation of the game board to the console
 */
 public void printBoard(){
-    
+    for(int i = 0; i < ROWS; i++){
+      for(int j = 0; j < COLS; j++){
+         System.out.printf("%5d", board[i][j]);
+       }
+         System.out.println();
+         System.out.println(); 
+    }
+
 }
+
 
 }
